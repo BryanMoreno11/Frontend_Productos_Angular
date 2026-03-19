@@ -1,3 +1,6 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
 <div class="grid">
     <div class="col-12">
         <div class="card px-6 py-6">
@@ -7,20 +10,30 @@
                     label="Agregar Producto"
                     icon="pi pi-plus"
                     styleClass="p-button-success"
+                    (onClick)="setAbrirModal()"
                 >
                 </p-button>
             </div>
 
             <div>
-                <!-- Se inyecta el Dumb Component y se pasan properties y eventos -->
                 <app-producto-table
                     [productos]="productos"
                     [isLoading]="isLoading"
                     [permissions]="permissions"
-                    (actionClicked)="setAccionProducto($event)"
+                    (editClicked)="setAbrirModal($event)"
+                    (deleteClicked)="setConfirmarEliminacion($event)"
                 >
                 </app-producto-table>
             </div>
         </div>
     </div>
 </div>
+
+<app-producto-form
+    [displayModal]="displayModal"
+    [producto]="productoSeleccionado"
+    [isLoading]="isSaving"
+    (onSave)="setGuardarProducto($event)"
+    (onCancel)="setCerrarModal()"
+>
+</app-producto-form>

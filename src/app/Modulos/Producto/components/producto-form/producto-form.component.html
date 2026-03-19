@@ -1,0 +1,50 @@
+<p-dialog 
+  [(visible)]="displayModal" 
+  [style]="{width: '450px'}" 
+  [header]="producto ? 'Modificar Producto' : 'Nuevo Producto'" 
+  [modal]="true" 
+  styleClass="p-fluid"
+  (onHide)="asignarEmisionCancelado()">
+
+  <ng-template pTemplate="content">
+    <form [formGroup]="productoForm">
+      
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" pInputText id="nombre" formControlName="nombre" required 
+               [ngClass]="{'ng-invalid ng-dirty': productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched}" />
+        @if (productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched) {
+          <small class="p-error">El nombre es requerido y debe tener al menos 3 caracteres.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="stock">Stock</label>
+        <p-inputNumber id="stock" formControlName="stock" [showButtons]="true" [min]="0" 
+                       [ngClass]="{'ng-invalid ng-dirty': productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched}">
+        </p-inputNumber>
+        @if (productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched) {
+          <small class="p-error">El stock debe ser un número válido o mayor/igual a 0.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="precio">Precio</label>
+        <p-inputNumber id="precio" formControlName="precio" mode="currency" currency="USD" locale="en-US" [min]="0.01" 
+                       [ngClass]="{'ng-invalid ng-dirty': productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched}">
+        </p-inputNumber>
+        @if (productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched) {
+          <small class="p-error">El precio es requerido.</small>
+        }
+      </div>
+
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="asignarEmisionCancelado()"></button>
+    <button pButton pRipple [label]="isLoading ? 'Guardando...' : 'Guardar'" icon="pi pi-check" class="p-button-text" 
+            (click)="asignarEmisionGuardado()" [disabled]="productoForm.invalid || isLoading"></button>
+  </ng-template>
+
+</p-dialog>

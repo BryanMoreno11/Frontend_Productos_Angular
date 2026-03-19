@@ -11,9 +11,14 @@ export class ProductoTableComponent {
   @Input() isLoading: boolean = false;
   @Input() permissions: any;
   
-  @Output() actionClicked = new EventEmitter<ProductoDTO>();
+  @Output() editClicked = new EventEmitter<ProductoDTO>();
+  @Output() deleteClicked = new EventEmitter<ProductoDTO>();
 
-  public asignarAccion(producto: ProductoDTO): void {
-    this.actionClicked.emit(producto);
+  public asignarEdicion(producto: ProductoDTO): void {
+    this.editClicked.emit(producto);
+  }
+
+  public asignarEliminacion(producto: ProductoDTO): void {
+    this.deleteClicked.emit(producto);
   }
 }

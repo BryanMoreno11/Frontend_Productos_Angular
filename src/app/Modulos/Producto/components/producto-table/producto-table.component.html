@@ -1,5 +1,4 @@
 @if (isLoading) {
-    <!-- Usamos @for de Angular 17 para el estado de carga -->
     @for (i of [1, 2, 3, 4, 5]; track i) {
         <p-skeleton width="100%" height="3rem" styleClass="mb-2"></p-skeleton>
     }
@@ -29,8 +28,12 @@
                     <p-button
                         icon="pi pi-pencil"
                         styleClass="p-button-rounded p-button-success mr-2"
-                        (onClick)="asignarAccion(producto)"
-                    >
+                        (onClick)="asignarEdicion(producto)">
+                    </p-button>
+                    <p-button
+                        icon="pi pi-trash"
+                        styleClass="p-button-rounded p-button-warning"
+                        (onClick)="asignarEliminacion(producto)">
                     </p-button>
                 </td>
             </tr>

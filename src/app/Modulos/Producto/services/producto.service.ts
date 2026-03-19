@@ -16,4 +16,31 @@ export class ProductoService {
         // Retorna una Promesa usando firstValueFrom, reemplanzando observables puros
         return firstValueFrom(this.http.get<ProductoDTO[]>(this.apiUrl));
     }
+
+    public getProducto(id: string): Promise<ProductoDTO> {
+        return firstValueFrom(
+            this.http.get<ProductoDTO>(`${this.apiUrl}/${id}`),
+        );
+    }
+
+    public crearProducto(producto: ProductoDTO): Promise<any> {
+        return firstValueFrom(
+            this.http.post<any>(`${this.apiUrl}/crear-producto`, producto),
+        );
+    }
+
+    public modificarProducto(id: string, producto: ProductoDTO): Promise<any> {
+        return firstValueFrom(
+            this.http.put<any>(
+                `${this.apiUrl}/modificar-producto/${id}`,
+                producto,
+            ),
+        );
+    }
+
+    public eliminarProducto(id: string): Promise<any> {
+        return firstValueFrom(
+            this.http.delete<any>(`${this.apiUrl}/eliminar-producto/${id}`),
+        );
+    }
 }
