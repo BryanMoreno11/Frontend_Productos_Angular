@@ -4,7 +4,7 @@
   [header]="producto ? 'Modificar Producto' : 'Nuevo Producto'" 
   [modal]="true" 
   styleClass="p-fluid"
-  (onHide)="asignarEmisionCancelado()">
+  (onHide)="emitCancel()">
 
   <ng-template pTemplate="content">
     <form [formGroup]="productoForm">
@@ -42,9 +42,9 @@
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="asignarEmisionCancelado()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="emitCancel()"></button>
     <button pButton pRipple [label]="isLoading ? 'Guardando...' : 'Guardar'" icon="pi pi-check" class="p-button-text" 
-            (click)="asignarEmisionGuardado()" [disabled]="productoForm.invalid || isLoading"></button>
+            (click)="emitSubmit()" [disabled]="productoForm.invalid || isLoading"></button>
   </ng-template>
 
 </p-dialog>

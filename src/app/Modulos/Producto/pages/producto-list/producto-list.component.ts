@@ -41,7 +41,6 @@ export class ProductoListComponent implements OnInit {
                 summary: 'Error',
                 detail: 'No se pudieron cargar los productos',
             });
-            debugger;
         } finally {
             this.isLoading = false;
         }
@@ -53,6 +52,7 @@ export class ProductoListComponent implements OnInit {
     }
 
     public setCerrarModal(): void {
+        console.log('Cerrando modal y reseteando estado');
         this.displayModal = false;
         this.productoSeleccionado = null;
     }

@@ -29,11 +29,13 @@
     </div>
 </div>
 
-<app-producto-form
+@if(displayModal){
+    <app-producto-form
     [displayModal]="displayModal"
     [producto]="productoSeleccionado"
     [isLoading]="isSaving"
     (onSave)="setGuardarProducto($event)"
-    (onCancel)="setCerrarModal()"
->
-</app-producto-form>
+    (onCancel)="setCerrarModal()"></app-producto-form>
+}
+
+
