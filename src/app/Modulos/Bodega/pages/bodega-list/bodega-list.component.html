@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <div class="flex justify-content-between align-items-center mb-4">
+                <h5 class="m-0">Gestión de Bodegas</h5>
+                <p-button
+                    label="Agregar Bodega"
+                    icon="pi pi-plus"
+                    styleClass="p-button-success"
+                    (onClick)="setAbrirModal()"
+                >
+                </p-button>
+            </div>
+
+            <div>
+                <app-bodega-table
+                   [bodegas]="paginator.page.items"
+                    [totalRecords]="paginator.page.totalItems"
+                    [rows]="paginator.rows"
+                    [isLoading]="paginator.loading"
+                    (lazyLoad)="onTableLazyLoad($event)"
+                    (filterChanged)="onTableFilter($event)"
+                    (editClicked)="setAbrirModal($event)"
+                    (deleteClicked)="setConfirmarEliminacion($event)">
+                </app-bodega-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(displayModal){
+    <app-bodega-form
+    [displayModal]="displayModal"
+    [bodega]="bodegaSeleccionada"
+    [isLoading]="isSaving"
+    (onSave)="setGuardarBodega($event)"
+    (onCancel)="setCerrarModal()"></app-bodega-form>
+}

@@ -1,0 +1,39 @@
+<p-dialog 
+  [(visible)]="displayModal" 
+  [style]="{width: '450px'}" 
+  [header]="bodega ? 'Modificar Bodega' : 'Nueva Bodega'" 
+  [modal]="true" 
+  styleClass="p-fluid"
+  (onHide)="emitCancel()">
+
+  <ng-template pTemplate="content">
+    <form [formGroup]="bodegaForm">
+      
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" pInputText id="nombre" formControlName="nombre" required 
+               [ngClass]="{'ng-invalid ng-dirty': bodegaForm.get('nombre')?.invalid && bodegaForm.get('nombre')?.touched}" />
+        @if (bodegaForm.get('nombre')?.invalid && bodegaForm.get('nombre')?.touched) {
+          <small class="p-error">El nombre es requerido y debe tener al menos 3 caracteres.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="descripcion">Descripción</label>
+        <input type="text" pInputText id="descripcion" formControlName="descripcion" required 
+               [ngClass]="{'ng-invalid ng-dirty': bodegaForm.get('descripcion')?.invalid && bodegaForm.get('descripcion')?.touched}" />
+        @if (bodegaForm.get('descripcion')?.invalid && bodegaForm.get('descripcion')?.touched) {
+          <small class="p-error">La descripción es requerida y debe tener al menos 3 caracteres.</small>
+        }
+      </div>
+
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="emitCancel()"></button>
+    <button pButton pRipple [label]="isLoading ? 'Guardando...' : 'Guardar'" icon="pi pi-check" class="p-button-text" 
+            (click)="emitSubmit()" [disabled]="bodegaForm.invalid || isLoading"></button>
+  </ng-template>
+
+</p-dialog>
