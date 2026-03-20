@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoDTO } from '../../clases/producto.dto';
 import { ProductoService } from '../../services/producto.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { PaginatorHandler } from 'src/app/shared/pagination/paginationHandler';
 
 @Component({
     selector: 'app-producto-list',
@@ -10,25 +11,29 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class ProductoListComponent implements OnInit {
     public productos: ProductoDTO[] = [];
     public isLoading: boolean = false;
-
-    // Variables para el Form Modal
     public displayModal: boolean = false;
     public productoSeleccionado: ProductoDTO | null = null;
     public isSaving: boolean = false;
 
-    public permissions = {
-        agregar: 'RastroProductos.Agregar',
-        verTabla: 'RastroProductos.VerTabla',
-    };
+    public paginator = new PaginatorHandler<ProductoDTO>(
+        (query) => this.productoService.getProductosPaginados(query)
+    );
 
     constructor(
         private productoService: ProductoService,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService,
-    ) {}
+        private confirmationService: ConfirmationService,) {}
 
     ngOnInit(): void {
-        this.cargarProductos();
+        this.paginator.init();
+    }
+
+    public onTableLazyLoad(event: any) {
+        this.paginator.next(event);
+    }
+
+    public onTableFilter(event: any) {
+        this.paginator.onFilter(event.value, event.field);
     }
 
     public async cargarProductos(): Promise<void> {

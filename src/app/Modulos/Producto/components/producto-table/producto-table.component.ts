@@ -6,13 +6,24 @@ import { ProductoDTO } from '../../clases/producto.dto';
   templateUrl: './producto-table.component.html'
 })
 export class ProductoTableComponent {
-  // Presentational/Dumb Component, solo recibe datos y emite eventos
   @Input() productos: ProductoDTO[] = [];
   @Input() isLoading: boolean = false;
-  @Input() permissions: any;
-  
+  @Input() totalRecords: number = 0; 
+  @Input() rows: number = 10;    
+
   @Output() editClicked = new EventEmitter<ProductoDTO>();
   @Output() deleteClicked = new EventEmitter<ProductoDTO>();
+  @Output() lazyLoad = new EventEmitter<any>();
+  @Output() filterChanged = new EventEmitter<{value: any, field: string}>();
+
+  public onLazyLoad(event: any): void {
+    this.lazyLoad.emit(event);
+  }
+
+  public onFilter(event: any, field: string): void {
+    const value = event.target ? event.target.value : event.value;
+    this.filterChanged.emit({ value, field });
+  }
 
   public asignarEdicion(producto: ProductoDTO): void {
     this.editClicked.emit(producto);

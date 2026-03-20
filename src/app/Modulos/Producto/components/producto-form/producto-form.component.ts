@@ -36,8 +36,6 @@ export class ProductoFormComponent implements OnInit {
         }
     }
 
-  
-
     public emitSubmit(): void {
         if (this.productoForm.valid) {
             this.onSave.emit(this.productoForm.value as ProductoDTO);

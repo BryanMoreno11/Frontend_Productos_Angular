@@ -17,12 +17,12 @@
 
             <div>
                 <app-producto-table
-                    [productos]="productos"
-                    [isLoading]="isLoading"
-                    [permissions]="permissions"
-                    (editClicked)="setAbrirModal($event)"
-                    (deleteClicked)="setConfirmarEliminacion($event)"
-                >
+                   [productos]="paginator.page.items"
+                    [totalRecords]="paginator.page.totalItems"
+                    [rows]="paginator.rows"
+                    [isLoading]="paginator.loading"
+                    (lazyLoad)="onTableLazyLoad($event)"
+                    (filterChanged)="onTableFilter($event)">
                 </app-producto-table>
             </div>
         </div>
