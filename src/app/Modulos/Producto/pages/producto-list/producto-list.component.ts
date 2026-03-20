@@ -19,7 +19,14 @@ export class ProductoListComponent implements OnInit {
     public isSaving: boolean = false;
 
     public paginator = new PaginatorHandler<ProductoDTO>((query) =>
-        this.productoService.getProductosPaginados(query['page'], query['pageSize'], query['nombre'], query['stockMin'], query['fechaIngresoHasta'], query['bodegaId']),
+        this.productoService.getProductosPaginados(
+            query['page'],
+            query['pageSize'],
+            query['nombre'],
+            query['stockMin'],
+            query['fechaIngresoHasta'],
+            query['bodegaId'],
+        ),
     );
 
     constructor(
@@ -37,9 +44,7 @@ export class ProductoListComponent implements OnInit {
     private async cargarBodegas() {
         try {
             this.bodegas = await this.bodegaService.getBodegas();
-        } catch (error) {
-            console.error('Error al cargar bodegas', error);
-        }
+        } catch (error) {}
     }
 
     public onTableLazyLoad(event: any) {
@@ -56,7 +61,6 @@ export class ProductoListComponent implements OnInit {
     }
 
     public setCerrarModal(): void {
-        console.log('Cerrando modal y reseteando estado');
         this.displayModal = false;
         this.productoSeleccionado = null;
     }
@@ -90,7 +94,6 @@ export class ProductoListComponent implements OnInit {
                 summary: 'Error',
                 detail: 'Hubo un problema al guardar el producto',
             });
-            debugger;
         } finally {
             this.isSaving = false;
         }
@@ -122,7 +125,6 @@ export class ProductoListComponent implements OnInit {
                 summary: 'Error',
                 detail: 'Hubo un problema al eliminar el producto',
             });
-            debugger;
         }
     }
 }
