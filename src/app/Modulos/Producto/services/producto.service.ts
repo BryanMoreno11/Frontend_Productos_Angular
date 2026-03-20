@@ -14,7 +14,6 @@ export class ProductoService {
     constructor(private http: HttpClient) {}
 
     public getProductos(): Promise<ProductoDTO[]> {
-        // Retorna una Promesa usando firstValueFrom, reemplanzando observables puros
         return firstValueFrom(this.http.get<ProductoDTO[]>(this.apiUrl));
     }
 
