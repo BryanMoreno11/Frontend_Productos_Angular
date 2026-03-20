@@ -15,14 +15,15 @@ export class ProductoListComponent implements OnInit {
     public productoSeleccionado: ProductoDTO | null = null;
     public isSaving: boolean = false;
 
-    public paginator = new PaginatorHandler<ProductoDTO>(
-        (query) => this.productoService.getProductosPaginados(query)
+    public paginator = new PaginatorHandler<ProductoDTO>((query) =>
+        this.productoService.getProductosPaginados(query),
     );
 
     constructor(
         private productoService: ProductoService,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService,) {}
+        private confirmationService: ConfirmationService,
+    ) {}
 
     ngOnInit(): void {
         this.paginator.init();
@@ -33,22 +34,7 @@ export class ProductoListComponent implements OnInit {
     }
 
     public onTableFilter(event: any) {
-        this.paginator.onFilter(event.value, event.field);
-    }
-
-    public async cargarProductos(): Promise<void> {
-        this.isLoading = true;
-        try {
-            this.productos = await this.productoService.getProductos();
-        } catch (error) {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'No se pudieron cargar los productos',
-            });
-        } finally {
-            this.isLoading = false;
-        }
+        this.paginator.onFilter(event.value, event.field, undefined, event.dt);
     }
 
     public setAbrirModal(producto: ProductoDTO | null = null): void {
@@ -84,7 +70,7 @@ export class ProductoListComponent implements OnInit {
                 });
             }
             this.setCerrarModal();
-            this.cargarProductos(); // Refrescar lista
+            this.paginator.reload(); // Refrescar lista
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
@@ -116,7 +102,7 @@ export class ProductoListComponent implements OnInit {
                 summary: 'Éxito',
                 detail: 'Producto eliminado correctamente',
             });
-            this.cargarProductos();
+            this.paginator.reload();
         } catch (error) {
             this.messageService.add({
                 severity: 'error',

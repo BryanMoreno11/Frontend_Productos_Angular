@@ -14,15 +14,22 @@ export class ProductoTableComponent {
   @Output() editClicked = new EventEmitter<ProductoDTO>();
   @Output() deleteClicked = new EventEmitter<ProductoDTO>();
   @Output() lazyLoad = new EventEmitter<any>();
-  @Output() filterChanged = new EventEmitter<{value: any, field: string}>();
+  @Output() filterChanged = new EventEmitter<{value: any, field: string, dt?: any}>();
 
   public onLazyLoad(event: any): void {
     this.lazyLoad.emit(event);
   }
 
-  public onFilter(event: any, field: string): void {
+  public onFilter(event: any, field: string, dt?: any): void {
     const value = event.target ? event.target.value : event.value;
-    this.filterChanged.emit({ value, field });
+    this.filterChanged.emit({ value, field, dt });
+  }
+
+  public onSearchInput(event: any, dt: any): void {
+    const value = event.target ? event.target.value : event.value;
+    if (value === '') {
+      this.onFilter(event, 'nombre', dt);
+    }
   }
 
   public asignarEdicion(producto: ProductoDTO): void {

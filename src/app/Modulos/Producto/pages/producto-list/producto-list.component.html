@@ -22,7 +22,9 @@
                     [rows]="paginator.rows"
                     [isLoading]="paginator.loading"
                     (lazyLoad)="onTableLazyLoad($event)"
-                    (filterChanged)="onTableFilter($event)">
+                    (filterChanged)="onTableFilter($event)"
+                    (editClicked)="setAbrirModal($event)"
+                    (deleteClicked)="setConfirmarEliminacion($event)">
                 </app-producto-table>
             </div>
         </div>
