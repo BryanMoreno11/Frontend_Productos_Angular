@@ -1,5 +1,5 @@
 export interface ProductoDTO {
-    id: string;
+    id?: string;
     nombre: string;
     stock: number;
     precio: number;

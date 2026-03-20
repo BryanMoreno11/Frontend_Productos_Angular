@@ -1,5 +1,5 @@
 export interface BodegaDTO {
-    id: string;
+    id?: string;
     nombre: string;
     descripcion: string;
 }
