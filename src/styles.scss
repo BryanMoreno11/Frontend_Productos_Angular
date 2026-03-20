@@ -12,3 +12,8 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/flags/flags.css";
 @import "assets/demo/styles/badges.scss";
 @import "assets/demo/styles/code.scss";
+
+/* Custom Overrides for Sakai */
+.p-datatable .p-datatable-loading-overlay {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
