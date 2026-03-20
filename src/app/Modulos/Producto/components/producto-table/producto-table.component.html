@@ -38,14 +38,37 @@
                     class="w-full sm:w-auto"
                 />
             </span>
+            <span class="block mt-2 md:mt-0 ml-2">
+                <p-calendar 
+                    placeholder="Ingreso Hasta" 
+                    dateFormat="dd/mm/yy"
+                    (onSelect)="onFilterDate($event, 'fechaIngresoHasta', dt)"
+                    (onClear)="onFilterDate(null, 'fechaIngresoHasta', dt)"
+                    [showClear]="true"
+                    class="w-full sm:w-auto">
+                </p-calendar>
+            </span>
+            <span class="block mt-2 md:mt-0 ml-2">
+                <p-dropdown 
+                    [options]="bodegas" 
+                    optionLabel="nombre" 
+                    optionValue="id" 
+                    placeholder="Seleccionar Bodega" 
+                    [showClear]="true" 
+                    (onChange)="onFilter($event, 'bodegaId', dt)"
+                    class="w-full sm:w-auto">
+                </p-dropdown>
+            </span>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Bodega</th>
             <th>Stock</th>
             <th>Precio</th>
+            <th>Fecha</th>
             <th>Acciones</th>
         </tr>
     </ng-template>
@@ -53,8 +76,10 @@
         <tr>
             <td>{{ producto.id }}</td>
             <td>{{ producto.nombre }}</td>
+            <td>{{ producto.bodegaNombre }}</td>
             <td>{{ producto.stock }}</td>
             <td>{{ producto.precio | currency }}</td>
+            <td>{{ producto.fechaIngreso | date:'dd/MM/yyyy' }}</td>
             <td>
                 <p-button
                     icon="pi pi-pencil"

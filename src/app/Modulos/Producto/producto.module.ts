@@ -15,6 +15,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 // Providers y Forms
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -38,7 +40,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     InputTextModule,
     InputNumberModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule,
+    DropdownModule
   ],
   providers: [
     MessageService,

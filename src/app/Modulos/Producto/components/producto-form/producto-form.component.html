@@ -38,6 +38,24 @@
         }
       </div>
 
+      <div class="field">
+        <label for="bodegaId">Bodega</label>
+        <p-dropdown id="bodegaId" formControlName="bodegaId" [options]="bodegas" optionLabel="nombre" optionValue="id" placeholder="Seleccionar bodega" [ngClass]="{'ng-invalid ng-dirty': productoForm.get('bodegaId')?.invalid && productoForm.get('bodegaId')?.touched}">
+        </p-dropdown>
+        @if (productoForm.get('bodegaId')?.invalid && productoForm.get('bodegaId')?.touched) {
+          <small class="p-error">La bodega es requerida.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="fechaIngreso">Fecha de Ingreso</label>
+        <p-calendar id="fechaIngreso" formControlName="fechaIngreso" [showIcon]="true" dateFormat="dd/mm/yy" appendTo="body" [ngClass]="{'ng-invalid ng-dirty': productoForm.get('fechaIngreso')?.invalid && productoForm.get('fechaIngreso')?.touched}">
+        </p-calendar>
+        @if (productoForm.get('fechaIngreso')?.invalid && productoForm.get('fechaIngreso')?.touched) {
+          <small class="p-error">La fecha de ingreso es requerida.</small>
+        }
+      </div>
+
     </form>
   </ng-template>
 

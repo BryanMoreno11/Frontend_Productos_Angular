@@ -17,27 +17,29 @@
 
             <div>
                 <app-producto-table
-                   [productos]="paginator.page.items"
+                    [productos]="paginator.page.items"
+                    [bodegas]="bodegas"
                     [totalRecords]="paginator.page.totalItems"
                     [rows]="paginator.rows"
                     [isLoading]="paginator.loading"
                     (lazyLoad)="onTableLazyLoad($event)"
                     (filterChanged)="onTableFilter($event)"
                     (editClicked)="setAbrirModal($event)"
-                    (deleteClicked)="setConfirmarEliminacion($event)">
+                    (deleteClicked)="setConfirmarEliminacion($event)"
+                >
                 </app-producto-table>
             </div>
         </div>
     </div>
 </div>
 
-@if(displayModal){
+@if (displayModal) {
     <app-producto-form
-    [displayModal]="displayModal"
-    [producto]="productoSeleccionado"
-    [isLoading]="isSaving"
-    (onSave)="setGuardarProducto($event)"
-    (onCancel)="setCerrarModal()"></app-producto-form>
+        [displayModal]="displayModal"
+        [producto]="productoSeleccionado"
+        [bodegas]="bodegas"
+        [isLoading]="isSaving"
+        (onSave)="setGuardarProducto($event)"
+        (onCancel)="setCerrarModal()"
+    ></app-producto-form>
 }
-
-

@@ -3,6 +3,8 @@ import { ProductoDTO } from '../../clases/producto.dto';
 import { ProductoService } from '../../services/producto.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorHandler } from 'src/app/shared/pagination/paginationHandler';
+import { BodegaDTO } from '../../../Bodega/clases/bodega.dto';
+import { BodegaService } from '../../../Bodega/services/bodega.service';
 
 @Component({
     selector: 'app-producto-list',
@@ -10,23 +12,34 @@ import { PaginatorHandler } from 'src/app/shared/pagination/paginationHandler';
 })
 export class ProductoListComponent implements OnInit {
     public productos: ProductoDTO[] = [];
+    public bodegas: BodegaDTO[] = [];
     public isLoading: boolean = false;
     public displayModal: boolean = false;
     public productoSeleccionado: ProductoDTO | null = null;
     public isSaving: boolean = false;
 
     public paginator = new PaginatorHandler<ProductoDTO>((query) =>
-        this.productoService.getProductosPaginados(query),
+        this.productoService.getProductosPaginados(query['page'], query['pageSize'], query['nombre'], query['stockMin'], query['fechaIngresoHasta'], query['bodegaId']),
     );
 
     constructor(
         private productoService: ProductoService,
+        private bodegaService: BodegaService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
     ) {}
 
     ngOnInit(): void {
+        this.cargarBodegas();
         this.paginator.init();
+    }
+
+    private async cargarBodegas() {
+        try {
+            this.bodegas = await this.bodegaService.getBodegas();
+        } catch (error) {
+            console.error('Error al cargar bodegas', error);
+        }
     }
 
     public onTableLazyLoad(event: any) {

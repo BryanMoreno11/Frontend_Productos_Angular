@@ -3,4 +3,7 @@ export interface ProductoDTO {
     nombre: string;
     stock: number;
     precio: number;
+    bodegaId: number;
+    bodegaNombre?: string;
+    fechaIngreso: string | Date;
 }

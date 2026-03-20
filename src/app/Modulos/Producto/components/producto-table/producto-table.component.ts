@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ProductoDTO } from '../../clases/producto.dto';
+import { BodegaDTO } from '../../../Bodega/clases/bodega.dto';
 
 @Component({
   selector: 'app-producto-table',
@@ -7,6 +8,7 @@ import { ProductoDTO } from '../../clases/producto.dto';
 })
 export class ProductoTableComponent {
   @Input() productos: ProductoDTO[] = [];
+  @Input() bodegas: BodegaDTO[] = [];
   @Input() isLoading: boolean = false;
   @Input() totalRecords: number = 0; 
   @Input() rows: number = 10;    
@@ -22,6 +24,11 @@ export class ProductoTableComponent {
 
   public onFilter(event: any, field: string, dt?: any): void {
     const value = event.target ? event.target.value : event.value;
+    this.filterChanged.emit({ value, field, dt });
+  }
+
+  public onFilterDate(event: Date | null, field: string, dt?: any): void {
+    const value = event ? event.toISOString() : null;
     this.filterChanged.emit({ value, field, dt });
   }
 
