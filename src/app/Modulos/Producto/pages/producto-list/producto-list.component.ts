@@ -5,28 +5,20 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorHandler } from 'src/app/shared/pagination/paginationHandler';
 import { BodegaDTO } from '../../../Bodega/clases/bodega.dto';
 import { BodegaService } from '../../../Bodega/services/bodega.service';
+import { productoCriteria } from '../../clases/productoCriteria';
 
 @Component({
     selector: 'app-producto-list',
     templateUrl: './producto-list.component.html',
 })
 export class ProductoListComponent implements OnInit {
-    public productos: ProductoDTO[] = [];
     public bodegas: BodegaDTO[] = [];
-    public isLoading: boolean = false;
     public displayModal: boolean = false;
     public productoSeleccionado: ProductoDTO | null = null;
     public isSaving: boolean = false;
 
     public paginator = new PaginatorHandler<ProductoDTO>((query) =>
-        this.productoService.getProductosPaginados(
-            query['page'],
-            query['pageSize'],
-            query['nombre'],
-            query['stockMin'],
-            query['fechaIngresoHasta'],
-            query['bodegaId'],
-        ),
+        this.productoService.getProductosPaginados(query as productoCriteria),
     );
 
     constructor(

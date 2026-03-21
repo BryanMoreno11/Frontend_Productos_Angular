@@ -39,6 +39,8 @@ export class ProductoTableComponent {
     }
   }
 
+  
+
   public asignarEdicion(producto: ProductoDTO): void {
     this.editClicked.emit(producto);
   }

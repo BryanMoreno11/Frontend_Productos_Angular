@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { ProductoDTO } from '../clases/producto.dto';
 import { environment } from '../../../../environments/environment';
 import { PageList } from 'src/app/shared/pagination/pageList';
+import { productoCriteria } from '../clases/productoCriteria';
 
 @Injectable({
     providedIn: 'root',
@@ -17,19 +18,23 @@ export class ProductoService {
         return firstValueFrom(this.http.get<ProductoDTO[]>(this.apiUrl));
     }
 
-    public getProductosPaginados(page: number, pageSize: number, nombre?: string, stockMin?: number, fechaIngresoHasta?: string, bodegaId?: number): Promise<PageList<ProductoDTO>> {
-        let params = new HttpParams()
-            .set('page', page.toString())
-            .set('pageSize', pageSize.toString());
-
-        if (nombre) params = params.set('nombre', nombre);
-        if (stockMin) params = params.set('stockMin', stockMin.toString());
-        if (fechaIngresoHasta) params = params.set('fechaIngresoHasta', fechaIngresoHasta);
-        if (bodegaId) params = params.set('bodegaId', bodegaId.toString());
-
-        return firstValueFrom(this.http.get<PageList<ProductoDTO>>(`${this.apiUrl}/listar-paginado`, { params }));
+    public getProductosPaginados(
+        criteria: productoCriteria,
+    ): Promise<PageList<ProductoDTO>> {
+        let params = new HttpParams();
+        Object.keys(criteria).forEach((key) => {
+            const value = criteria[key];
+            if (value != null && value != '' && value != undefined) {
+                params=params.set(key, value.toString());
+            }
+        });
+        return firstValueFrom(
+            this.http.get<PageList<ProductoDTO>>(
+                `${this.apiUrl}/listar-paginado`,
+                { params },
+            ),
+        );
     }
-
 
     public getProducto(id: string): Promise<ProductoDTO> {
         return firstValueFrom(
