@@ -36,7 +36,14 @@ export class ProductoListComponent implements OnInit {
     private async cargarBodegas() {
         try {
             this.bodegas = await this.bodegaService.getBodegas();
-        } catch (error) {}
+        } catch (error) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Hubo un problema al cargar las bodegas',
+            });
+
+        }
     }
 
     public onTableLazyLoad(event: any) {
