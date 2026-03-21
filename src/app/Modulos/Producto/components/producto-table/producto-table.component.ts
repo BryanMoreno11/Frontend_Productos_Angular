@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ProductoDTO } from '../../clases/producto.dto';
 import { BodegaDTO } from '../../../Bodega/clases/bodega.dto';
+import { ProductoFilterFields } from '../../clases/productoCriteria';
 
 @Component({
   selector: 'app-producto-table',
@@ -18,6 +19,8 @@ export class ProductoTableComponent {
   @Output() lazyLoad = new EventEmitter<any>();
   @Output() filterChanged = new EventEmitter<{value: any, field: string, dt?: any}>();
 
+  public fields = ProductoFilterFields;
+
   public onLazyLoad(event: any): void {
     this.lazyLoad.emit(event);
   }
@@ -32,10 +35,10 @@ export class ProductoTableComponent {
     this.filterChanged.emit({ value, field, dt });
   }
 
-  public onSearchInput(event: any, dt: any): void {
+  public onSearchInput(event: any, field:string, dt: any): void {
     const value = event.target ? event.target.value : event.value;
     if (value === '') {
-      this.onFilter(event, 'nombre', dt);
+      this.onFilter(event,field, dt);
     }
   }
 

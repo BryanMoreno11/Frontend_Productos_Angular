@@ -6,3 +6,10 @@ export interface productoCriteria {
     page: number;
     pageSize: number;
 }
+
+export enum ProductoFilterFields {
+    Nombre = 'nombre',
+    StockMinimo = 'stockMinimo',
+    FechaIngresoHasta = 'fechaIngresoHasta',
+    BodegaId = 'bodegaId'
+}

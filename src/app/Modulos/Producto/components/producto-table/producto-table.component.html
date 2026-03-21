@@ -21,8 +21,8 @@
                 <input
                     pInputText
                     type="text"
-                    (keydown.enter)="onFilter($event, 'nombre', dt)"
-                    (input)="onSearchInput($event, dt)"
+                    (keydown.enter)="onFilter($event, fields.Nombre, dt)"
+                    (input)="onSearchInput($event, fields.Nombre, dt)"
                     placeholder="Buscar por nombre..."
                     class="w-full sm:w-auto"
                 />
@@ -32,7 +32,8 @@
                 <input
                     pInputText
                     type="number"
-                    (keydown.enter)="onFilter($event, 'stockMinimo', dt)"
+                    (keydown.enter)="onFilter($event, fields.StockMinimo, dt)"
+                    (input)="onSearchInput($event, fields.StockMinimo, dt)"
                     placeholder="Stock Mínimo"
                     min="0"
                     class="w-full sm:w-auto"
@@ -42,8 +43,8 @@
                 <p-calendar 
                     placeholder="Ingreso Hasta" 
                     dateFormat="dd/mm/yy"
-                    (onSelect)="onFilterDate($event, 'fechaIngresoHasta', dt)"
-                    (onClear)="onFilterDate(null, 'fechaIngresoHasta', dt)"
+                    (onSelect)="onFilterDate($event, fields.FechaIngresoHasta, dt)"
+                    (onClear)="onFilterDate(null, fields.FechaIngresoHasta, dt)"
                     [showClear]="true"
                     class="w-full sm:w-auto">
                 </p-calendar>
@@ -55,7 +56,7 @@
                     optionValue="id" 
                     placeholder="Seleccionar Bodega" 
                     [showClear]="true" 
-                    (onChange)="onFilter($event, 'bodegaId', dt)"
+                    (onChange)="onFilter($event, fields.BodegaId, dt)"
                     class="w-full sm:w-auto">
                 </p-dropdown>
             </span>
